@@ -1,0 +1,32 @@
+def count_project_tokens(project_dir):
+    total_token_counts = {
+        'TOKEN': 0,
+        'ELINK': 0,
+        'FFS_FILE': 0,
+        'FD_INFO': 0,
+        'FD_AREA': 0,
+        'OUTPUT_REGISTER': 0
+    }
+
+    for root, dirs, files in os.walk(project_dir):
+        for file in files:
+            if file.endswith('.sdl'):
+                file_path = os.path.join(root, file)
+                token_counts = count_tokens(file_path)
+
+                for token, count in token_counts.items():
+                    total_token_counts[token] += count
+
+    for token, count in total_token_counts.items():
+        print(f'{token}: {count}')
+
+file_path = input("What sdl file: ")
+print(file_path)
+token_counts = count_tokens(file_path)
+print(token_counts)
+
+project_dir = input("Enter proj directory: " )
+count_project_tokens(project_dir)
+
+generate_report()
+"""
